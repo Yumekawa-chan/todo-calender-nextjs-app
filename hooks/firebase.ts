@@ -20,3 +20,5 @@ export function useUser() {
   });
   return user;
 }
+
+export const app2 = initializeApp(firebaseConfig)
