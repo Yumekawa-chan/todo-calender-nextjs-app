@@ -10,7 +10,6 @@ import {
     Flex,
     FormLabel,
     Heading,
-    Image,
     Input,
     Text,
 } from "@chakra-ui/react";
@@ -63,13 +62,13 @@ export default function Signup(){
     return(
         <Flex>
       <Box
-        w="50%"
+        w="100%"
         display="flex"
         flexDirection="column"
         justifyContent="center"
       >
         <Heading color="gray.800" mb="48px" textAlign="center" size="xl">
-          ようこそ
+          TODO CALENDER
         </Heading>
         <Box
           boxShadow="lg"
@@ -84,10 +83,10 @@ export default function Signup(){
         >
           <Box w="100%">
             <form onSubmit={handleSubmit(onSubmit)}>
-              <FormLabel fontWeight="bold">Eメール</FormLabel>
+              <FormLabel fontWeight="bold">メールアドレス</FormLabel>
               {errors.email && (
                 <Text color="red.400" mb="8px">
-                  Eメールは必須です
+                  メールアドレスは必須です
                 </Text>
               )}
               <Input
@@ -146,12 +145,6 @@ export default function Signup(){
           </Box>
         </Box>
       </Box>
-      <Image
-        w="50%"
-        h="100vh"
-        alt="カバー画像"
-        src="https://images.unsplash.com/photo-1652554715588-60c932f66a0b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80"
-      />
     </Flex>
     );
 }
