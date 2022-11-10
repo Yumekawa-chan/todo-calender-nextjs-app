@@ -2,6 +2,7 @@ import { app2 } from "../hooks/firebase"
 import { getAuth, signOut, onAuthStateChanged } from "firebase/auth"
 import { useRouter } from "next/router"
 import React, { useState, useEffect } from "react"
+import Calender from "./Calender/Calender"
 
 export default function mypage() {
 
@@ -32,6 +33,7 @@ export default function mypage() {
         <h1>Mypage</h1>
         <p>{user && user.email}</p>
         <button onClick = {handleLogout}>Signout</button>
+        <Calender />
       </>
     )
   }else{

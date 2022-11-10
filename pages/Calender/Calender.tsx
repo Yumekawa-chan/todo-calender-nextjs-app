@@ -1,7 +1,8 @@
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 
-export default function Calender() {
+
+const Calender = () => {
   return (
     <div>
       <FullCalendar
@@ -10,3 +11,5 @@ export default function Calender() {
     </div>
   );
 }
+
+export default Calender;
