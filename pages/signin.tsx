@@ -19,7 +19,7 @@ type Inputs = {
   password:string;
 }
 
-export default function Login() {
+export default function Signin() {
   const {
     register,
     handleSubmit,
@@ -79,10 +79,10 @@ export default function Login() {
         >
           <Box w="100%">
             <form onSubmit={handleSubmit(onSubmit)}>
-              <FormLabel fontWeight="bold">メールアドレス</FormLabel>
+              <FormLabel fontWeight="bold">E-mail</FormLabel>
               {errors.email && (
                 <Text color="red.400" mb="8px">
-                  メールアドレスは必須です
+                  Email address is required.
                 </Text>
               )}
               <Input
@@ -92,10 +92,10 @@ export default function Login() {
                 placeholder="example@test.com"
                 {...register("email", { required: true })}
               />
-              <FormLabel fontWeight="bold">パスワード</FormLabel>
+              <FormLabel fontWeight="bold">Password</FormLabel>
               {errors.password && (
                 <Text color="red.400" mb="8px">
-                  パスワードは必須です
+                  Password is required.
                 </Text>
               )}
               <Input
@@ -106,8 +106,8 @@ export default function Login() {
               />
               <Flex flexDirection="column">
                 <Text mb="8" textAlign="center">
-                  アカウントの新規作成
-                  <Link href="/signup">こちら</Link>
+                  Signup is
+                  <Link href="/signup"> here.</Link>
                 </Text>
                 <Button
                   type="submit"
@@ -121,7 +121,7 @@ export default function Login() {
                     background: "gray.700",
                   }}
                 >
-                  ログイン
+                  Signin
                 </Button>
               </Flex>
             </form>

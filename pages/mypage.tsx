@@ -29,13 +29,13 @@ export default function mypage() {
   if (user !== null){
     return(
       <>
-        <h1>マイページ</h1>
+        <h1>Mypage</h1>
         <p>{user && user.email}</p>
-        <button onClick = {handleLogout}>ログアウト</button>
+        <button onClick = {handleLogout}>Signout</button>
       </>
     )
   }else{
-    redirect('/login')
+    redirect('/signin')
   }
 }
 

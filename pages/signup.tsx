@@ -37,7 +37,6 @@ export default function Signup(){
             setIsProcessingSignup(true)
             await createUserWithEmailAndPassword(auth,email,password);
             setIsProcessingSignup(false);
-            console.log("ユーザ登録成功");
         }catch(e){
             console.log(e);
         }
@@ -51,7 +50,7 @@ export default function Signup(){
         if(password === confirmationPassword){
             signup(email,password);
         } else {
-            alert("パスワードが一致しません");
+            alert("Password does not match.");
         }
     };
 
@@ -83,10 +82,10 @@ export default function Signup(){
         >
           <Box w="100%">
             <form onSubmit={handleSubmit(onSubmit)}>
-              <FormLabel fontWeight="bold">メールアドレス</FormLabel>
+              <FormLabel fontWeight="bold">Email</FormLabel>
               {errors.email && (
                 <Text color="red.400" mb="8px">
-                  メールアドレスは必須です
+                  Email is required.
                 </Text>
               )}
               <Input
@@ -96,10 +95,10 @@ export default function Signup(){
                 placeholder="example@test.com"
                 {...register("email", { required: true })}
               />
-              <FormLabel fontWeight="bold">パスワード</FormLabel>
+              <FormLabel fontWeight="bold">Password</FormLabel>
               {errors.password && (
                 <Text color="red.400" mb="8px">
-                  パスワードは必須です
+                  Password is required.
                 </Text>
               )}
               <Input
@@ -108,10 +107,10 @@ export default function Signup(){
                 size="lg"
                 mb="8"
               />
-              <FormLabel fontWeight="bold">パスワード再入力</FormLabel>
+              <FormLabel fontWeight="bold">Retype password</FormLabel>
               {errors.confirmationPassword && (
                 <Text color="red.400" mb="8px">
-                  パスワード再入力は必須です
+                  Retype password is required.
                 </Text>
               )}
               <Input
@@ -123,8 +122,8 @@ export default function Signup(){
 
               <Flex flexDirection="column">
                 <Text mb="8" textAlign="center">
-                  アカウントをお持ちの方は
-                  <Link href="/login">こちら</Link>
+                Already have an account? 
+                  <Link href="/signin">here.</Link>
                 </Text>
                 <Button
                   type="submit"
@@ -138,7 +137,7 @@ export default function Signup(){
                     background: "gray.700",
                   }}
                 >
-                  サインアップ
+                  Signup
                 </Button>
               </Flex>
             </form>
