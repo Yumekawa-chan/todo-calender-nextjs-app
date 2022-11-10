@@ -34,7 +34,6 @@ export default function Login() {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
-        alert( 'ログインok!' );
         console.log( user );
       })
       .catch((error) => {
@@ -52,7 +51,7 @@ export default function Login() {
   };
 
   useEffect(()=>{
-    if(currentUser) router.push("/");
+    if(currentUser) router.push("/mypage");
   },[currentUser,router]);
 
 

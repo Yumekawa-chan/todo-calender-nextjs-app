@@ -56,7 +56,7 @@ export default function Signup(){
     };
 
     useEffect(()=>{
-        if(currentUser) router.push("/");
+        if(currentUser) router.push("/mypage");
         },[currentUser,router]);
 
     return(
