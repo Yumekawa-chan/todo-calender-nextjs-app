@@ -19,3 +19,7 @@ a {
 .blue{
   color:darkcyan;
 }
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
