@@ -2,7 +2,7 @@ import { app2 } from "../hooks/firebase"
 import { getAuth, signOut, onAuthStateChanged } from "firebase/auth"
 import { useRouter } from "next/router"
 import React, { useState, useEffect } from "react"
-import Calender from "./Calender/Calender"
+import Calender from "./Calender"
 
 export default function mypage() {
 
