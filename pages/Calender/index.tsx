@@ -12,7 +12,6 @@ function Calender() {
   }, []);
 
   const router = useRouter()
-  
 
   return (
     <div>

@@ -1,8 +1,17 @@
-const id = () => {
+import { useRouter } from "next/router"
+
+const Day = () => {
+    const router= useRouter();
+    const {id} = router.query;
     return (
-        <div>
-            Enter
+        <>
+        <div className="text-5xl text-center p-5">
+            {id}
         </div>
+        <div className="text-5xl text-center p-8">
+            TODO LIST
+        </div>
+        </>
     )
 }
-export default id;
+export default Day;
