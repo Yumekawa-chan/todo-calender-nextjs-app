@@ -1,4 +1,3 @@
-import { useRouter } from "next/router"
 import { useState, useEffect } from 'react';
 import { db } from '../hooks/firebase';
 import { collection, getDocs } from 'firebase/firestore';
@@ -10,10 +9,7 @@ type User = {
     who:string;
 }
 
-const Day = () => {
-    const router= useRouter();
-    const {id} = router.query;
-
+function App() {
     const [users, setUsers] = useState<User[]>([]);
 
     useEffect(() => {
@@ -36,22 +32,22 @@ const Day = () => {
             setUsers(userList);
         });
     }, []);
-
-    return (
-        <>
-        <div className="text-5xl text-center p-5">
-            {id}
-        </div>
-        <div className="text-5xl text-center p-8">
-            TODO LIST
-        </div>
+  
+    return(
         <div className='text-center' >
+            {users.map((user, index) => (
+                <div key={index.toString()}>{user.who}</div>
+            ))}
+
             {users.map((user, index) => (
                 <div key={index.toString()}>{user.taskText}</div>
             ))}
 
+            {users.map((user, index) => (
+                <div key={index.toString()}>{user.Day}</div>
+            ))}
         </div>
-        </>
-    )
+    );
 }
-export default Day;
+
+export default App;

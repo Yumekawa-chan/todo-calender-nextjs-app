@@ -1,4 +1,4 @@
-import { app2 } from "../hooks/firebase"
+import { app } from "../hooks/firebase"
 import { getAuth, signOut, onAuthStateChanged } from "firebase/auth"
 import { useRouter } from "next/router"
 import React, { useState, useEffect } from "react"
@@ -15,7 +15,7 @@ export default function mypage() {
   }, []);
 
   const router = useRouter()
-  const auth = getAuth(app2)
+  const auth = getAuth(app)
 
   const handleLogout = async () => {
     await signOut(auth)

@@ -2,26 +2,26 @@ import { initializeApp } from "firebase/app";
 import { getAuth, onAuthStateChanged, User } from "firebase/auth";
 import { useState } from "react";
 import { getFirestore } from "firebase/firestore";
-import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
-  apiKey: process.env.NEXT_PUBLIC_API_KEY,
-  authDomain: process.env.NEXT_PUBLIC_AUTH_DOMAIN,
-  projectId: process.env.PROJECT_ID,
-  storageBucket: process.env.STORAGE_BUCLET,
-  messagingSenderId: process.env.MESSAGENG_SENDER_ID,
-  appId: process.env.APP_ID,
-  measurementId: process.env.MEASUREMENT_ID
+  apiKey: "AIzaSyDTxQyQpkpPjQVCajjqfc5ESPrTvHj7s-o",
+  authDomain: "todo-calender-26a81.firebaseapp.com",
+  databaseURL: "https://todo-calender-26a81-default-rtdb.firebaseio.com",
+  projectId: "todo-calender-26a81",
+  storageBucket: "todo-calender-26a81.appspot.com",
+  messagingSenderId: "576919475576",
+  appId: "1:576919475576:web:60ade936ad8f480570648d",
+  measurementId: "G-BEFRSDW1SK"
 };
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const db = getFirestore(app);
+
+
 export function useAuth() {
   return auth;
 }
-
-export const db = getFirestore();
-export const storage = getStorage();
 
 export function useUser() {
   const [user, setUser] = useState<User>();
@@ -31,4 +31,4 @@ export function useUser() {
   return user;
 }
 
-export const app2 = initializeApp(firebaseConfig)
+export { app, auth, db }
