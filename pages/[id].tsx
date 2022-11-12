@@ -1,7 +1,8 @@
 import { useRouter } from "next/router"
 import { useState, useEffect } from 'react';
-import { db } from '../hooks/firebase';
+import { db,app } from '../hooks/firebase';
 import { collection, getDocs } from 'firebase/firestore';
+import { onAuthStateChanged,getAuth } from "firebase/auth"
 
 type User = {
     Day:string;
@@ -13,8 +14,17 @@ type User = {
 const Day = () => {
     const router= useRouter();
     const {id} = router.query;
+    const auth = getAuth(app)
 
     const [users, setUsers] = useState<User[]>([]);
+    const [user,setUser] = useState();
+
+    useEffect(() => {
+        onAuthStateChanged(auth, (currentUser) => {
+          setUser(currentUser);
+        });
+      }, []);
+    
 
     useEffect(() => {
         const usersCollectionRef = collection(db, 'tasks');
@@ -35,7 +45,10 @@ const Day = () => {
             });
             setUsers(userList);
         });
+
     }, []);
+
+
 
     return (
         <>
@@ -45,11 +58,11 @@ const Day = () => {
         <div className="text-5xl text-center p-8">
             TODO LIST
         </div>
+        <div className="text-center">{user && user.email}がログイン中</div>
         <div className='text-center' >
             {users.map((user, index) => (
                 <div key={index.toString()}>{user.taskText}</div>
             ))}
-
         </div>
         </>
     )
