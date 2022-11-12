@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react';
 import { db,app } from '../hooks/firebase';
 import { collection, getDocs } from 'firebase/firestore';
 import { onAuthStateChanged,getAuth } from "firebase/auth"
+import { Spacer } from "@nextui-org/react"
+import { Heading, Box, Button, Text } from '@chakra-ui/react';
 
 type User = {
     Day:string;
@@ -52,18 +54,28 @@ const Day = () => {
 
     return (
         <>
-        <div className="text-5xl text-center p-5">
-            {id}
-        </div>
-        <div className="text-5xl text-center p-8">
-            TODO LIST
-        </div>
-        <div className="text-center">{user && user.email}がログイン中</div>
-        <div className='text-center' >
-            {users.map((user, index) => (
-                <div key={index.toString()}>{user.taskText}</div>
-            ))}
-        </div>
+            <div className="text-5xl text-center p-5">
+                {id}
+            </div>
+            {/* <div className="text-5xl text-center p-8"> */}
+            <Heading className="text-center">
+                TODO LIST
+            </Heading>
+            {/* </div> */}
+            <Spacer y={2} />
+            <div className="text-center">
+                {user && user.email}がログイン中
+            </div>
+            <Spacer y={1} />
+            <div className='text-center' >
+                {users.map((user) => (
+                    <div key={user.toString()}>
+                        <input type = "checkbox" />
+                        <label>{user.taskText}</label>
+                    </div>
+                ))}
+                
+            </div>
         </>
     )
 }
