@@ -50,7 +50,14 @@ const Day = () => {
 
     }, []);
 
-
+    const getTime = () => {
+        const date1 = new Date();
+        const date2 = date1.getFullYear()  + 
+                    ("00" + (date1.getMonth() + 1)).slice(-2)  + 
+                    ("00" + (date1.getDate())).slice(-2); 
+        console.log(date2);
+        return date2;
+    }
 
     return (
         <>
