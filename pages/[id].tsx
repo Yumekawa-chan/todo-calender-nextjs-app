@@ -1,10 +1,10 @@
 import { useRouter } from "next/router"
 import { useState, useEffect } from 'react';
 import { db,app } from '../hooks/firebase';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs, setDoc, doc } from 'firebase/firestore';
 import { onAuthStateChanged,getAuth } from "firebase/auth"
 import { Spacer } from "@nextui-org/react"
-import { Heading, Box, Button, Text } from '@chakra-ui/react';
+import { Heading} from '@chakra-ui/react';
 
 type User = {
     Day:string;
@@ -58,6 +58,30 @@ const Day = () => {
         console.log(date2);
         return date2;
     }
+
+    // add処理
+
+    const getRandomString = () =>{
+        const characters ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+        let result = '';
+        const charactersLength = characters.length;
+        for (let i = 0; i < 20; i++) {
+            result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+        return result;
+    }
+
+    const Add = () => {
+        setDoc(doc(db, "tasks",getRandomString()), {
+            Day:getTime(),
+            isCompleted: false,
+            taskText: "ba",
+            who:"hello"
+          });
+        console.log("Success add process!!")
+    }
+
+    // ここまで
 
     return (
         <>
