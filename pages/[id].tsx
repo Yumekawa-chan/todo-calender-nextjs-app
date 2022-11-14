@@ -1,7 +1,7 @@
 import { useRouter } from "next/router"
 import { useState, useEffect } from 'react';
 import { db,app } from '../hooks/firebase';
-import { collection, getDocs, setDoc, doc } from 'firebase/firestore';
+import { collection, getDocs, setDoc, doc, query, where } from 'firebase/firestore';
 import { onAuthStateChanged,getAuth } from "firebase/auth"
 import { Spacer } from "@nextui-org/react"
 import { Heading} from '@chakra-ui/react';
@@ -12,6 +12,7 @@ type User = {
     taskText:string;
     who:string;
 }
+
 
 const Day = () => {
     const router= useRouter();
@@ -26,9 +27,11 @@ const Day = () => {
           setUser(currentUser);
         });
       }, []);
+
     
+
     useEffect(() => {
-        const usersCollectionRef = collection(db, 'tasks');
+        const usersCollectionRef = query(collection(db,"tasks"),where("Day","==",getDate()),where("who","==",getUserName()))
         getDocs(usersCollectionRef).then((querySnapshot) => {
             const  userList: User[] = [];
             let count: number = 0;
@@ -46,8 +49,11 @@ const Day = () => {
             });
             setUsers(userList);
         });
-
     }, []);
+
+    const getUserName = () => {
+        return auth.currentUser.email
+    }
 
     const getTime = () => {
         const date1 = new Date();
@@ -75,15 +81,16 @@ const Day = () => {
         return result;
     }
 
-    const Add = () => {
+    const Add = () => { // 自動ID定義しなくていい　ドキュメント
         setDoc(doc(db, "tasks",getRandomString()), {
             Day:getTime(),
             isCompleted: false,
-            taskText: "ba",
-            who:"hello"
+            taskText: "aaaa",
+            who:getUserName()
           });
         console.log("Success add process!!")
     }
+
 
 
     return (
@@ -91,16 +98,15 @@ const Day = () => {
             <div className="text-5xl text-center p-5">
                 {id}
             </div>
-            {/* <div className="text-5xl text-center p-8"> */}
             <Heading className="text-center">
                 TODO LIST
             </Heading>
-            {/* </div> */}
             <Spacer y={2} />
             <div className="text-center">
-                {user && user.email}がログイン中
+                {getUserName()}がログイン中
             </div>
             <Spacer y={1} />
+
             <div className='text-center' >
                 {users.map((user) => (
                     <div key={user.toString()}>

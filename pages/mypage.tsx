@@ -36,7 +36,7 @@ export default function mypage() {
         <Calender />
       </>
     )
-  }else{
+  } else {
     redirect('/signin')
   }
 }
