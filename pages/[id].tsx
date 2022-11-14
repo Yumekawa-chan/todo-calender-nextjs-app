@@ -21,6 +21,7 @@ const Day = () => {
 
     const [users, setUsers] = useState<User[]>([]);
     const [user,setUser] = useState();
+    const [inputText, setInputText] = useState("");
 
     useEffect(() => {
         onAuthStateChanged(auth, (currentUser) => {
@@ -31,7 +32,8 @@ const Day = () => {
     
 
     useEffect(() => {
-        const usersCollectionRef = query(collection(db,"tasks"),where("Day","==",getDate()),where("who","==",getUserName()))
+        (async()=>{
+        const usersCollectionRef = query(collection(db,"tasks"),where("Day","==",getDate()),where("who","==",await(getUserName())))
         getDocs(usersCollectionRef).then((querySnapshot) => {
             const  userList: User[] = [];
             let count: number = 0;
@@ -48,12 +50,28 @@ const Day = () => {
                 };
             });
             setUsers(userList);
-        });
+        });})()
     }, []);
 
-    const getUserName = () => {
-        return auth.currentUser.email
+
+    var initFirebaseAuth = () => {
+        return new Promise((resolve) => {
+        var unsubscribe = auth.onAuthStateChanged((user) => {
+            resolve(user);
+    
+            unsubscribe();
+        });
+        });
+    };
+
+    const getUserName = async () => {
+        var userName = await initFirebaseAuth();
+        return auth.currentUser?.email;
     }
+    
+
+    console.log(typeof getUserName)
+
 
     const getTime = () => {
         const date1 = new Date();
@@ -81,15 +99,25 @@ const Day = () => {
         return result;
     }
 
-    const Add = () => { // 自動ID定義しなくていい　ドキュメント
+    const Add = (e:any) => { // 自動ID定義しなくていい　ドキュメント
+        e.preventDefault();
+        if (inputText === "") {
+            return;
+        }
+
         setDoc(doc(db, "tasks",getRandomString()), {
             Day:getTime(),
             isCompleted: false,
-            taskText: "aaaa",
-            who:getUserName()
+            taskText: inputText,
+            who:user && user.email
           });
-        console.log("Success add process!!")
+        setInputText("");
     }
+
+    const handleChange = (e:any) => {
+        setInputText(e.target.value);
+        console.log(inputText);
+      };
 
 
 
@@ -103,8 +131,20 @@ const Day = () => {
             </Heading>
             <Spacer y={2} />
             <div className="text-center">
-                {getUserName()}がログイン中
+                {user && user.email}がログイン中
             </div>
+
+            <Spacer y={1} />
+
+            <div className="text-center">
+                <form onSubmit={Add}>
+                <input type="text" onChange={handleChange} value={inputText} />
+                <button onClick={Add}>
+                ADD
+                </button>
+            </form>
+            </div>
+
             <Spacer y={1} />
 
             <div className='text-center' >
