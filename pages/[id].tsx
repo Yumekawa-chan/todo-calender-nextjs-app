@@ -27,7 +27,6 @@ const Day = () => {
         });
       }, []);
     
-
     useEffect(() => {
         const usersCollectionRef = collection(db, 'tasks');
         getDocs(usersCollectionRef).then((querySnapshot) => {
@@ -59,7 +58,12 @@ const Day = () => {
         return date2;
     }
 
-    // add処理
+    const getDate = () => {
+        const getDate1 = Object.values({id})[0]?.slice(0,4)
+        const getDate2 = Object.values({id})[0]?.slice(5,7)
+        const getDate3 = Object.values({id})[0]?.slice(8,10)
+        return getDate1 + getDate2 + getDate3
+    }
 
     const getRandomString = () =>{
         const characters ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
@@ -81,7 +85,6 @@ const Day = () => {
         console.log("Success add process!!")
     }
 
-    // ここまで
 
     return (
         <>
