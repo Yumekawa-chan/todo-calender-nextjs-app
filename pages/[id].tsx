@@ -2,7 +2,7 @@ import { useRouter } from "next/router"
 import { useState, useEffect } from 'react';
 import { db,app } from '../hooks/firebase';
 import { collection, getDocs, setDoc, doc, query, where } from 'firebase/firestore';
-import { onAuthStateChanged,getAuth } from "firebase/auth"
+import { onAuthStateChanged,getAuth, reload } from "firebase/auth"
 import { Spacer } from "@nextui-org/react"
 import { Heading} from '@chakra-ui/react';
 
@@ -12,7 +12,7 @@ type User = {
     taskText:string;
     who:string;
 }
-
+let num :number = 0
 
 const Day = () => {
     const router= useRouter();
@@ -38,7 +38,7 @@ const Day = () => {
             const  userList: User[] = [];
             let count: number = 0;
             querySnapshot.docs.map((doc, index) => {
-            if (count === index ) {
+            if (count === index) {
             const user: User= {
             taskText: doc.data().taskText,
             isCompeted: doc.data().isCompeted,
@@ -51,7 +51,7 @@ const Day = () => {
             });
             setUsers(userList);
         });})()
-    }, []);
+    }, [num]);
 
 
     var initFirebaseAuth = () => {
@@ -112,6 +112,7 @@ const Day = () => {
             who:user && user.email
           });
         setInputText("");
+        num += 1
     }
 
     const handleChange = (e:any) => {
