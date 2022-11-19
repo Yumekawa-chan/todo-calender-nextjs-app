@@ -27,9 +27,7 @@ const Day = () => {
         onAuthStateChanged(auth, (currentUser) => {
           setUser(currentUser);
         });
-      }, []);
-
-    
+      }, []);  
 
     useEffect(() => {
         (async()=>{
@@ -73,15 +71,6 @@ const Day = () => {
     console.log(typeof getUserName)
 
 
-    const getTime = () => {
-        const date1 = new Date();
-        const date2 = date1.getFullYear()  + 
-                    ("00" + (date1.getMonth() + 1)).slice(-2)  + 
-                    ("00" + (date1.getDate())).slice(-2); 
-        console.log(date2);
-        return date2;
-    }
-
     const getDate = () => {
         const getDate1 = Object.values({id})[0]?.slice(0,4)
         const getDate2 = Object.values({id})[0]?.slice(5,7)
@@ -106,7 +95,7 @@ const Day = () => {
         }
 
         setDoc(doc(db, "tasks",getRandomString()), {
-            Day:getTime(),
+            Day:getDate(),
             isCompleted: false,
             taskText: inputText,
             who:user && user.email
@@ -154,8 +143,7 @@ const Day = () => {
                         <input type = "checkbox" />
                         <label>{user.taskText}</label>
                     </div>
-                ))}
-                
+                ))}    
             </div>
         </>
     )
